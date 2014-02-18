@@ -5,11 +5,11 @@ exports.data = function(cb) {
 
 	var output1 = null;
 	var output2 = null;
-	exec("cat /proc/stat", function(err, stdout, stderr) {
+	exec("cat /proc/stat", function(err, stdout) {
 		if (!err) {
 			output1 = stdout.split(/[\n\r]{1,2}/);
 			setTimeout(function() {
-				exec("cat /proc/stat", function(err, stdout, stderr) {
+				exec("cat /proc/stat", function(err, stdout) {
 					if (!err) {
 						output2 = stdout.split(/[\n\r]{1,2}/);
 						res.cpuload = 0;
@@ -53,6 +53,6 @@ exports.manage_post = function(post, cb) {
 	cb(0, null);
 };
 
-exports.columns = 6;
+exports.columns = 4;
 exports.title = "CPU Graph";
 exports.updatetime = 1000;
