@@ -9,12 +9,13 @@ script(type="text/javascript").
 	
 	function timeoutCPUGraphFunc()
 	{
-		$.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackCPUGraphFunc, null);
+		$.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{username}', callbackCPUGraphFunc, null);
 	}
 	
 	$(document).ready(function () {
 		var labels = { visible: true, position: 'inside' };
-		$('#cpu_load_gauge').jqxGauge({
+		var gauge = $('#cpu_load_gauge');
+		gauge.jqxGauge({
 			ranges: [
 				{ startValue: 0, endValue: 50, style: { fill: '#e2e2e2', stroke: '#e2e2e2' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
 				{ startValue: 50, endValue: 70, style: { fill: '#f6de54', stroke: '#f6de54' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
@@ -35,7 +36,7 @@ script(type="text/javascript").
 			ticksMajor: { interval: 10, size: '10%' }
 		});
 		
-		$('#cpu_load_gauge').jqxGauge('setValue', #{data.cpuload || 0});
+		gauge.jqxGauge('setValue', #{data.cpuload || 0});
 	
 		setTimeout(timeoutCPUGraphFunc, #{user_widget.widget.updatetime});
 	});
